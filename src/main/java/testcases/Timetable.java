@@ -22,9 +22,9 @@ public class Timetable {
         @BeforeMethod
         public void setUp () throws Exception {
 
-
-//            System.setProperty("webdriver.chrome.driver", "D:\\auto\\driver\\chromedriver.exe");// chromedriver驱动存放地址
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\driver\\chromedriver.exe");// chro
+        
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\WDL\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");// chromedriver驱动存放地址
+//            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\driver\\chromedriver.exe");// chro
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             String url = "https://test-staff.puxinwangxiao.com/";
