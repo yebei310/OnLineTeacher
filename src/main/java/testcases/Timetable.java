@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class Timetable {
 
@@ -22,7 +23,7 @@ public class Timetable {
         @BeforeMethod
         public void setUp () throws Exception {
 
-        
+
             System.setProperty("webdriver.chrome.driver", "C:\\Users\\WDL\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");// chromedriver驱动存放地址
 //            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\driver\\chromedriver.exe");// chro
             driver = new ChromeDriver();
@@ -34,15 +35,18 @@ public class Timetable {
         }
         @Test
         public void setLogin ()throws Exception {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            System.out.printf("登录页面");
             driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div[3]/div/div[2]/form/div[1]/div[1]/div/div[1]/input")).sendKeys("13261462623");
             Thread.sleep(5000);
             driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div[3]/div/div[2]/form/div[2]/div[1]/div/div[1]/input")).sendKeys("abc123456");
             driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/div[3]/div/div[2]/form/div[3]")).click();
             Thread.sleep(3000);
-            System.out.printf("登录成功");
+            System.out.println("登录成功");
             String tssUrl = "https://test-tss.puxinwangxiao.com/myCourse/todoList";
             driver.get(tssUrl);
             Thread.sleep(5000);
+            System.out.println("我的课表-去上课");
             driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[2]/div/div[4]/div[2]/table/tbody/tr[1]/td[16]/div/button")).click();
             Thread.sleep(2000);
             driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[2]/section/div/div[4]/div/div/div[2]/div/div/a")).click();
@@ -50,11 +54,13 @@ public class Timetable {
             Set<String> set = driver.getWindowHandles();
             driver.switchTo().window((String) set.toArray()[1]);
             driver.navigate().refresh();
+            System.out.println("老师进入到上课web客户端");
             Thread.sleep(8000);
             try {
+                System.out.println("老师点击上课按钮");
                 driver.findElement(By.xpath("//*[@id=\"class-panel-container\"]/div[5]/div")).click();
             } catch (Exception e){
-                System.out.printf("已经处于上课中。");
+                System.out.println("已经处于上课中。");
             }
 
             Thread.sleep(10000);
